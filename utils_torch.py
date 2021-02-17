@@ -31,7 +31,7 @@ class EncodeMetric(nn.Module):
         outputs_ = (self.sigmoid(outputs) > 0.5).type(torch.FloatTensor)
         outputs_[:,5:] = outputs_[:,:5]*outputs_[:,5:]
         labels_ = labels.to('cpu')
-        num_correct = torch.sum((torch.sum(outputs_-labels_,1)==0).type(torch.FloatTensor))
+        num_correct = torch.sum((torch.sum(torch.abs(outputs_-labels_),1)==0).type(torch.FloatTensor))
         
         return num_correct
 
